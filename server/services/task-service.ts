@@ -31,7 +31,7 @@ export const findOne = async (uuid: string) => {
   const result = await databaseConnection.dbQuery({
     queryString:
       'SELECT * FROM `task` WHERE `uuid` = ?',
-    params: [uuid]
+    params: [uuid],
   })
   return result
 }
@@ -67,7 +67,7 @@ export const deleteOne = async (uuid: string) => {
 
 export default {
   create,
-  getAll
+  getAll,
   findOne,
   update,
   deleteOne

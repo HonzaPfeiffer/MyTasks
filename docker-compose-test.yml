@@ -1,0 +1,34 @@
+version: '1.0.0'
+services:
+  db:
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-pass}
+      MYSQL_DATABASE: ${DB_NAME:-testdb}
+    volumes:
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/init.sql
+  taskapp:
+    image: tasks-backend-app
+    restart: always
+    container_name: tasks-backend-app-container
+    ports:
+      - $NODE_PORT:$NODE_PORT
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    depends_on:
+      - db
+    environment:
+      APP_PORT: ${NODE_PORT:-3000}
+      DB_HOST: ${DB_HOST:-host.docker.internal}
+      DB_NAME: ${DB_NAME:-testdb}
+      DB_USER: ${DB_USER:-root}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_PASSWORD: ${DB_PASSWORD:-pass}
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

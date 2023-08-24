@@ -1,4 +1,4 @@
-CREATE TABLE `task` {
+CREATE TABLE `task` (
     `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `uuid` text NOT NULL UNIQUE,
     `title` text NOT NULL,
@@ -6,4 +6,4 @@ CREATE TABLE `task` {
     `status` text NOT NULL DEFAULT '0',
     `date_created` datetime NOT NULL,
     `date_updated` datetime
-} COLLATE 'utf8mb4_general_ci';
+) COLLATE 'utf8mb4_general_ci';
